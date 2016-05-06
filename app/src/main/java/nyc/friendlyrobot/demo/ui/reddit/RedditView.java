@@ -48,7 +48,7 @@ public class RedditView extends CoordinatorLayout implements RedditMVPView {
 
     @Override
     public void showPosts(List<Post> posts) {
-        redditRecyclerView.postAdapter.setPosts(posts);
+        redditRecyclerView.getPostAdapter().setPosts(posts);
     }
 
     @Override

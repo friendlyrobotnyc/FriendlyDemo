@@ -22,7 +22,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public ActivityComponent getActivityComponent() {
         if (activityComponent == null) {
-            activityComponent = ActivityComponentFactory.create(this);
+            activityComponent = ActivityComponentFactory.INSTANCE.INSTANCE.create(this);
         }
         return activityComponent;
     }
