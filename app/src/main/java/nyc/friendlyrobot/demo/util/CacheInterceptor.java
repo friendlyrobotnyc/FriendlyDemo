@@ -11,9 +11,6 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
-/**
- * Created by 206847 on 1/16/16.
- */
 
 public class CacheInterceptor implements Interceptor {
     private final NetworkStatus networkStatus;

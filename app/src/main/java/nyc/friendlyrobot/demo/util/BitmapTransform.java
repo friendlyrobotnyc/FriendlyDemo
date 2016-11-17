@@ -6,9 +6,6 @@ import com.squareup.picasso.Transformation;
 
 import nyc.friendlyrobot.demo.data.model.Image;
 
-/**
- * Created by brianplummer on 12/19/15.
- */
 public class BitmapTransform implements Transformation
 {
     int maxWidth, maxHeight;

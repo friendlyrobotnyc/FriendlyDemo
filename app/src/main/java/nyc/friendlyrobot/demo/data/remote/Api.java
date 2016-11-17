@@ -8,9 +8,6 @@ import rx.Observable;
 
 public interface Api {
 
-    String ENDPOINT = "https://api.ribot.io/";
-
-
     @GET("r/aww/new/.json")
     Observable<RedditData> aww(@Query("limit") String limit, @Header("fresh") String fresh);
 }

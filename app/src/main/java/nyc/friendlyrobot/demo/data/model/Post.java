@@ -6,9 +6,6 @@ import com.google.common.base.Optional;
 
 import org.immutables.value.Value;
 
-/**
- * Created by brianplummer on 12/19/15.
- */
 @Value.Immutable
 @Value.Style(allParameters = true)
 public abstract class Post implements PostModel {
@@ -29,6 +26,5 @@ public abstract class Post implements PostModel {
         return Optional.absent();
             return Optional.of(preview().images().get(0).source());
     }
-
 
 }

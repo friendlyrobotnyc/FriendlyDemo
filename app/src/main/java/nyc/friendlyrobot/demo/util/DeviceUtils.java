@@ -9,9 +9,6 @@ import android.view.WindowManager;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-/**
- * Created by brianplummer on 12/19/15.
- */
 @Singleton
 public class DeviceUtils {
 

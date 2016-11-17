@@ -18,7 +18,6 @@ public class Interaction {
     Api api;
 
 
-
     public boolean recordExists(String TableName,
                                 String dbfield, String fieldValue) {
         String Query = "Select * from " + TableName + " where " + dbfield + " = " + fieldValue;

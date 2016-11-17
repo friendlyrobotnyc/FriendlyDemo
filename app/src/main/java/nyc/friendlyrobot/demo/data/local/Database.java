@@ -27,5 +27,4 @@ public  class Database extends SQLiteOpenHelper {
     //used for upgrading to new data model.
   }
 
-
 }

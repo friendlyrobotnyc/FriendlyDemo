@@ -101,12 +101,10 @@ public class ApplicationModule {
         return SqlBrite.create(message -> Timber.tag("Database").v(message));
     }
 
-
     @Provides
     @NonNull
     @Singleton
     public BriteDatabase provideDatabase(SqlBrite sqlBrite, Database helper) {
         return sqlBrite.wrapDatabaseHelper(helper, Schedulers.io());
     }
-
 }
