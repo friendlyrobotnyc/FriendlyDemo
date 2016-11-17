@@ -6,7 +6,6 @@ import nyc.friendlyrobot.demo.injection.module.ActivityModule;
 import nyc.friendlyrobot.demo.ui.reddit.PostViewHolder;
 import nyc.friendlyrobot.demo.ui.reddit.RedditActivity;
 import nyc.friendlyrobot.demo.ui.reddit.RedditRecyclerView;
-import nyc.friendlyrobot.demo.ui.reddit.RedditView;
 
 /**
  * This component inject dependencies to all Activities across the application
@@ -18,6 +17,5 @@ public interface ActivityComponent {
 
     void inject(RedditActivity activity);
     void inject(RedditRecyclerView recyclerView);
-    void inject(RedditView view);
     void inject(PostViewHolder holder);
 }

@@ -5,17 +5,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
+import nyc.friendlyrobot.demo.data.model.Post;
 import nyc.friendlyrobot.demo.ui.base.BaseActivity;
 
-/**
- * Created by brianplummer on 12/16/15.
- */
-public class RedditRecyclerView extends RecyclerView {
+public class RedditRecyclerView extends RecyclerView implements RedditMVPView {
 
     @Inject
     PostAdapter postAdapter;
+
+    @Inject
+    RedditPresenter presenter;
 
     public RedditRecyclerView(Context context) {
         this(context, null);
@@ -35,9 +38,21 @@ public class RedditRecyclerView extends RecyclerView {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-
+        presenter.attachView(this);
+        presenter.loadPosts();
         setOrientation();
         setAdapter(postAdapter);
+    }
+
+    @Override
+    public void showPosts(List<Post> posts) {
+        postAdapter.setPosts(posts);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        presenter.detachView();
     }
 
     private void setOrientation() {
@@ -45,4 +60,10 @@ public class RedditRecyclerView extends RecyclerView {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         setLayoutManager(layoutManager);
     }
+
+    @Override
+    public void showError() {
+        // do domething
+    }
+
 }
