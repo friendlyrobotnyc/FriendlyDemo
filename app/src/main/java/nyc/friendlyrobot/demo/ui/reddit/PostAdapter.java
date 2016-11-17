@@ -13,12 +13,9 @@ import javax.inject.Inject;
 import nyc.friendlyrobot.demo.androidboilerplate.R;
 import nyc.friendlyrobot.demo.data.model.Post;
 
-/**
- * Created by brianplummer on 12/16/15.
- */
 public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
 
-    private List<Post> articles = new ArrayList<>();
+    private final List<Post> articles = new ArrayList<>();
 
     @Inject
     public PostAdapter() {}
@@ -43,11 +40,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
     public void setPosts(List<Post> articlesToAdd) {
         articles.clear();
         articles.addAll(articlesToAdd);
-        notifyDataSetChanged();
-    }
-
-    public void addArticle(Post article) {
-        articles.add(article);
         notifyDataSetChanged();
     }
 }

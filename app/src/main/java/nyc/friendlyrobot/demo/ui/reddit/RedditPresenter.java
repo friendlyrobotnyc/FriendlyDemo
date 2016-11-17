@@ -9,7 +9,6 @@ import rx.Subscription;
 
 public class RedditPresenter extends BasePresenter<RedditMVPView> {
 
-
     private final RedditReader redditReader;
     private Subscription subscription;
 
