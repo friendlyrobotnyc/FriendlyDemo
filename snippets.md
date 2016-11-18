@@ -86,3 +86,121 @@ ApplicationModule.java
                 .build();
     }
 ```
+NetworkModule
+
+```java
+ @Provides
+    @NonNull
+    @Singleton
+    public OkHttpClient providClient(@ClientCache File cacheDir, CacheInterceptor interceptor) {
+        final OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
+        Cache cache = new Cache(cacheDir, 20 * 1024 * 1024);
+        okHttpBuilder.cache(cache);
+        okHttpBuilder.interceptors().add(interceptor); //needed for force network
+        okHttpBuilder.networkInterceptors().add(interceptor); //needed for offline mode
+        return okHttpBuilder.build();
+    }
+```
+
+RedditActivity.java
+```java
+protected int getLayout() {
+        return R.layout.activity_main;
+    }
+
+```
+RedditMVPView.java
+```java
+public interface RedditMVPView extends MvpView {
+
+    void showError();
+    void showPosts(List<Post> posts);
+}
+```
+RedditRecyclerView
+```java
+implements RedditMVPView
+```
+```java
+public RedditRecyclerView(Context context) {
+        this(context, null);
+    }
+
+    public RedditRecyclerView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public RedditRecyclerView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        ((BaseActivity) context)
+                .getActivityComponent()
+                .inject(this);
+    }
+```
+```java
+ @Inject
+    PostAdapter postAdapter;
+
+    @Inject
+    RedditPresenter presenter;
+```
+
+```java
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        presenter.attachView(this);
+        presenter.loadPosts();
+        setOrientation();
+        setAdapter(postAdapter);
+    }
+
+    @Override
+    public void showPosts(List<Post> posts) {
+        postAdapter.setPosts(posts);
+    }
+
+    @Override
+    public void showError() {
+        // do domething
+    }
+```
+
+```java
+@Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        presenter.detachView();
+    }
+
+```
+
+```java
+public PostViewHolder(View itemView) {
+        super(itemView);
+        performInjection(itemView);
+        findViews(itemView);
+        setMaxDimensions(itemView);
+    }
+
+    public void onBind(Post article) {
+        title.setText(article.title());
+        if (article.nestedThumbnail().isPresent()) {
+            showImage(article);
+        }
+    }
+
+    private void showImage(Post article) {
+        Image image = mapToImage(article);
+        BitmapTransform bitmapTransform = new BitmapTransform(maxWidth, maxHeight, image);
+        setupview(bitmapTransform);
+
+        Picasso.with(itemView.getContext())
+                .load(image.url())
+                .transform(bitmapTransform)
+                .resize(bitmapTransform.targetWidth, bitmapTransform.targetHeight)
+                .centerInside()
+                .placeholder(R.color.gray80)
+                .into(thumbnail);
+    }
+```
