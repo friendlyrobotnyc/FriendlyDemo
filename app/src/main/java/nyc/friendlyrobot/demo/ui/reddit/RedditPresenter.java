@@ -14,7 +14,6 @@ public class RedditPresenter extends BasePresenter<RedditMVPView> {
 
     @Inject
     public RedditPresenter(RedditReader redditReader) {
-
         this.redditReader = redditReader;
     }
 
@@ -31,7 +30,7 @@ public class RedditPresenter extends BasePresenter<RedditMVPView> {
 
     public void loadPosts() {
         checkViewAttached();
-        subscription = redditReader.readPosts()
+        subscription = redditReader.posts()
                 .compose(FriendlyScheduler.schedule())
                 .subscribe(posts -> getMvpView().showPosts(posts),
                         throwable -> getMvpView().showError());

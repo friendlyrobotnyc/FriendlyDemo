@@ -9,7 +9,6 @@ import com.google.gson.GsonBuilder;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.otto.Bus;
 import com.squareup.picasso.Picasso;
-import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.SqlBrite;
 
 import java.util.Date;
@@ -19,7 +18,6 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import nyc.friendlyrobot.demo.androidboilerplate.BuildConfig;
-import nyc.friendlyrobot.demo.data.local.Database;
 import nyc.friendlyrobot.demo.data.model.GsonAdaptersModel;
 import nyc.friendlyrobot.demo.data.remote.Api;
 import nyc.friendlyrobot.demo.util.DateDeserializer;
@@ -27,7 +25,6 @@ import okhttp3.OkHttpClient;
 import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
 import retrofit2.RxJavaCallAdapterFactory;
-import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 /**
@@ -99,12 +96,5 @@ public class ApplicationModule {
     @Singleton
     public SqlBrite provideSqlBrite() {
         return SqlBrite.create(message -> Timber.tag("Database").v(message));
-    }
-
-    @Provides
-    @NonNull
-    @Singleton
-    public BriteDatabase provideDatabase(SqlBrite sqlBrite, Database helper) {
-        return sqlBrite.wrapDatabaseHelper(helper, Schedulers.io());
     }
 }

@@ -7,19 +7,19 @@ import com.google.common.base.Optional;
 import org.immutables.value.Value;
 
 @Value.Immutable
-public abstract class Post implements PostModel {
+public abstract class Post {
     @Nullable
     public abstract Preview preview();
 
-    abstract String title();
+    public abstract String title();
 
-    abstract String url();
-
-    @Nullable
-    abstract Integer height();
+    public abstract String url();
 
     @Nullable
-    abstract Integer width();
+    public abstract Integer height();
+
+    @Nullable
+    public abstract Integer width();
 
     @Value.Derived
     public Optional<Image> nestedThumbnail() {

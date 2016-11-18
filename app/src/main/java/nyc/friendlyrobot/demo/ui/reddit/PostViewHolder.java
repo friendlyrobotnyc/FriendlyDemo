@@ -37,14 +37,16 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
 
     public void onBind(Post article) {
         title.setText(article.title());
-        showImage(article);
+        if (article.nestedThumbnail().isPresent()) {
+            showImage(article);
+        }
     }
 
     private void showImage(Post article) {
         Image image = ImmutableImage
                 .builder()
-                .height(article.height())
-                .width(article.width())
+                .height(article.nestedThumbnail().get().height())
+                .width(article.nestedThumbnail().get().width())
                 .url(article.url())
                 .build();
         BitmapTransform bitmapTransform = new BitmapTransform(maxWidth, maxHeight, image);

@@ -28,11 +28,11 @@ public class RedditReader extends Interaction {
                 .subscribeOn(Schedulers.io())
                 .flatMap(this::posts)
                 .toList();
-
     }
 
     @NonNull
     private Observable<Post> posts(RedditData redditData) {
-        return Observable.from(redditData.data().children()).map(Children::data);
+        return Observable.from(redditData.data().children())
+                .map(Children::data);
     }
 }
