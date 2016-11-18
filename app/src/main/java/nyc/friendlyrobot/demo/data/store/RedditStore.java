@@ -24,7 +24,7 @@ public class RedditStore extends BaseStore<RedditData, String> {
 
     }
 
-    protected Observable<RedditData> fetch(String forceNetwork, String limit) {
-        return api.get().aww("50",forceNetwork);
+    protected Observable<RedditData> fetch(String redditName,String forceNetwork) {
+        return api.get().fetchSubreddit(redditName, "50", forceNetwork);
     }
 }

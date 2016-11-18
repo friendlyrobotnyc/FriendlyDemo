@@ -43,11 +43,12 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void showImage(Post article) {
+        Image nestedImage = article.nestedThumbnail().get();
         Image image = ImmutableImage
                 .builder()
-                .height(article.nestedThumbnail().get().height())
-                .width(article.nestedThumbnail().get().width())
-                .url(article.url())
+                .height(nestedImage.height())
+                .width(nestedImage.width())
+                .url(nestedImage.url())
                 .build();
         BitmapTransform bitmapTransform = new BitmapTransform(maxWidth, maxHeight, image);
 

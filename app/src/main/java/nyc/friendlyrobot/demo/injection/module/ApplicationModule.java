@@ -49,12 +49,6 @@ public class ApplicationModule {
         return mApplication;
     }
 
-    @Provides
-    @Singleton
-    Bus provideEventBus() {
-        return new Bus();
-    }
-
 
     @Provides
     @Singleton
@@ -69,7 +63,7 @@ public class ApplicationModule {
     @Provides
     @NonNull
     @Singleton
-    public Api provideTMSApi(@NonNull OkHttpClient okHttpClient,
+    public Api provideApi(@NonNull OkHttpClient okHttpClient,
                              @NonNull Gson gson) {
 
         return new Retrofit.Builder()
@@ -85,16 +79,9 @@ public class ApplicationModule {
     @Provides
     @NonNull
     @Singleton
-    public Picasso providePicasso(@NonNull Application boxBeeApplication, @NonNull OkHttpClient okHttpClient) {
-        return new Picasso.Builder(boxBeeApplication)
+    public Picasso providePicasso(@NonNull Application application, @NonNull OkHttpClient okHttpClient) {
+        return new Picasso.Builder(application)
                 .downloader(new OkHttp3Downloader(okHttpClient))
                 .build();
-    }
-
-    @Provides
-    @NonNull
-    @Singleton
-    public SqlBrite provideSqlBrite() {
-        return SqlBrite.create(message -> Timber.tag("Database").v(message));
     }
 }
