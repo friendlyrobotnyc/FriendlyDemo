@@ -12,11 +12,13 @@ public class BitmapTransform implements Transformation
     Image key;
     public int targetWidth;
     public int targetHeight;
+    private final String picassoKey;
 
     public BitmapTransform(int maxWidth, int maxHeight, Image image) {
         this.maxWidth = maxWidth;
         this.maxHeight = maxHeight;
         this.key = image;
+        this.picassoKey = key.url() + "_" + targetWidth + ":" + targetHeight;
 
         double aspectRatio;
         if (image.width() >= image.height()) {
@@ -33,7 +35,7 @@ public class BitmapTransform implements Transformation
     @Override
     public Bitmap transform(Bitmap source) {
         Bitmap result = Bitmap.createScaledBitmap(source, targetWidth,
-                targetHeight, false);
+                targetHeight, true);
         if (result != source) {
             source.recycle();
         }
@@ -42,6 +44,6 @@ public class BitmapTransform implements Transformation
 
     @Override
     public String key() {
-        return key.url() + "_" + targetWidth + ":" + targetHeight;
+        return picassoKey;
     }
 }
