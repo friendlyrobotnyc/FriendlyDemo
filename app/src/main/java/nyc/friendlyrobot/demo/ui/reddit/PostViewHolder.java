@@ -28,44 +28,42 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     @Inject
     DeviceUtils deviceUtils;
 
-    public PostViewHolder(View itemView) {
-        super(itemView);
-        performInjection(itemView);
-        findViews(itemView);
-        setMaxDimensions(itemView);
-    }
 
-    public void onBind(Post article) {
-        title.setText(article.title());
-        if (article.nestedThumbnail().isPresent()) {
-            showImage(article);
-        }
-    }
 
-    private void showImage(Post article) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private Image transformPostToImage(Post article) {
         Image nestedImage = article.nestedThumbnail().get();
-        Image image = ImmutableImage
+        return ImmutableImage
                 .builder()
                 .height(nestedImage.height())
                 .width(nestedImage.width())
                 .url(nestedImage.url())
                 .build();
-        BitmapTransform bitmapTransform = new BitmapTransform(maxWidth, maxHeight, image);
+    }
 
+    private void configureLayoutItems(BitmapTransform bitmapTransform) {
         int targetWidth = bitmapTransform.targetWidth;
         int targetHeight = bitmapTransform.targetHeight;
 
         setSpacer(targetWidth, targetHeight);
-
         setupThumbnail(targetWidth, targetHeight);
-
-        Picasso.with(itemView.getContext())
-                .load(image.url())
-                .transform(bitmapTransform)
-                .resize(targetWidth, targetHeight)
-                .centerInside()
-                .placeholder(R.color.gray80)
-                .into(thumbnail);
     }
 
     private void setSpacer(int targetWidth, int targetHeight) {

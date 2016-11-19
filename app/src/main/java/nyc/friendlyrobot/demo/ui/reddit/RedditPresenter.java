@@ -12,44 +12,10 @@ import nyc.friendlyrobot.demo.ui.base.BasePresenter;
 import nyc.friendlyrobot.demo.util.FriendlyScheduler;
 import rx.Observable;
 import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 public class RedditPresenter extends BasePresenter<RedditMVPView> {
 
-    private Subscription subscription;
-    private final RedditStore redditStore;
 
-    @Inject
-    public RedditPresenter(RedditStore redditStore) {
-        this.redditStore = redditStore;
-    }
-
-    @Override
-    public void attachView(RedditMVPView mvpView) {
-        super.attachView(mvpView);
-    }
-
-
-    public void loadPosts() {
-        checkViewAttached();
-        subscription = redditStore.get("aww")
-                .flatMap(this::sanitizeData)
-                .toList()
-                .compose(FriendlyScheduler.schedule())
-                .subscribe(posts -> getMvpView().showPosts(posts),
-                        throwable -> getMvpView().showError());
-    }
-
-    @NonNull
-    private Observable<Post> sanitizeData(RedditData redditData) {
-        return Observable.from(redditData.data().children())
-                .map(Children::data)
-                .filter(post -> post.nestedThumbnail().isPresent());
-    }
-
-    @Override
-    public void detachView() {
-        super.detachView();
-        if (subscription != null) subscription.unsubscribe();
-    }
 
 }

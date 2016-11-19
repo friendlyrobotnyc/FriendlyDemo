@@ -7,6 +7,5 @@ import nyc.friendlyrobot.demo.ui.base.MvpView;
 
 public interface RedditMVPView extends MvpView {
 
-    void showError();
-    void showPosts(List<Post> posts);
+
 }

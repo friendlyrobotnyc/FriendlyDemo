@@ -10,21 +10,7 @@ import nyc.friendlyrobot.demo.injection.component.ActivityComponent;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    protected ActivityComponent activityComponent;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(getLayout());
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-    }
 
-    public ActivityComponent getActivityComponent() {
-        if (activityComponent == null) {
-            activityComponent = ActivityComponentFactory.create(this);
-        }
-        return activityComponent;
-    }
-
-    protected abstract int getLayout();
+   
 }
