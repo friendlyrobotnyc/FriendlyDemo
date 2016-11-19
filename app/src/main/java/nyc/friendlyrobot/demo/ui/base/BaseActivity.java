@@ -12,12 +12,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected ActivityComponent activityComponent;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(getLayout());
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-    }
 
     public ActivityComponent getActivityComponent() {
         if (activityComponent == null) {
@@ -25,6 +19,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         return activityComponent;
     }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(getLayout());
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+    }
+
+
 
     protected abstract int getLayout();
 }
